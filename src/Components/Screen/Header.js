@@ -42,7 +42,7 @@ function Header() {
 
             </div>
             <div className="flex-initial flex justify-around w-[25%] ">
-                <button className="w-24 border p-2 rounded-lg font-semibold text-1xl shadow-2xl bg-slate-50">Login</button>
+                <button onClick={()=>navigate('Signin')} className="w-24 border p-2 rounded-lg font-semibold text-1xl shadow-2xl bg-slate-50">Login</button>
                 <button className="w-24 border p-2 rounded-full font-semibold text-1xl shadow-xl bg-slate-50">Sell</button>
             </div>
         </div>
