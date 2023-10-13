@@ -15,24 +15,35 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAds } from "../../Config/firebase";
 
 
 
 function Products() {
-    const [ads , setAds] = useState()
+    const [ads, setAds] = useState([])
     const navigate = useNavigate()
-    useEffect(()=>{
-
-        fetch('https://fakestoreapi.com/products')
-        .then((res)=> res.json())
-        .then(res => setAds(res))
-    },[])
 
 
-        // More products...
 
-    if(!ads){
-        return(<h1>Ads LOading</h1>)
+    useEffect( () => {
+
+        data()
+        console.log(ads)
+    }, [])
+
+
+
+
+    const data = async () => {
+        const adData = await getAds()
+        setAds(adData)
+    }
+
+
+    // More products...
+
+    if (!ads) {
+        return (<h1>Ads LOading</h1>)
     }
     return (
         <div className="bg-white">
@@ -40,11 +51,11 @@ function Products() {
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
 
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                    {ads.map((product , index) => (
-                        <div onClick={()=>navigate('/Products/' + index)} key={product.id} className="group relative">
+                    {ads.map((product, index) => (
+                        <div onClick={() => navigate('/Products/' + index)} key={product.id} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                 <img
-                                    src={product.image}
+                                    src={product.imageurl}
                                     className="h-full w-full object-cover object-center p-1 lg:h-full lg:w-full"
                                 />
                             </div>
@@ -56,7 +67,7 @@ function Products() {
                                             {product.title}
                                         </a>
                                     </h3>
-                                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                
                                 </div>
                                 <p className="text-sm font-medium text-gray-900">{product.price}</p>
                             </div>
