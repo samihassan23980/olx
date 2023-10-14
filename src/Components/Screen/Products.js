@@ -20,31 +20,26 @@ import { getAds } from "../../Config/firebase";
 
 
 function Products() {
-    const [ads, setAds] = useState([])
+    const [ads, setAds] = useState()
     const navigate = useNavigate()
-
-
 
     useEffect( () => {
 
         data()
-        console.log(ads)
+     
     }, [])
-
-
-
 
     const data = async () => {
         const adData = await getAds()
         setAds(adData)
     }
 
-
     // More products...
 
     if (!ads) {
         return (<h1>Ads LOading</h1>)
     }
+    console.log(ads)
     return (
         <div className="bg-white">
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -52,7 +47,7 @@ function Products() {
 
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                     {ads.map((product, index) => (
-                        <div onClick={() => navigate('/Products/' + index)} key={product.id} className="group relative">
+                        <div onClick={() => navigate('/Products/' + product.userID)} key={index} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                 <img
                                     src={product.imageurl}
@@ -70,7 +65,8 @@ function Products() {
                                 
                                 </div>
                                 <p className="text-sm font-medium text-gray-900">{product.price}</p>
-                            </div>
+                                 </div>
+                            
                         </div>
                     ))}
                 </div>

@@ -5,12 +5,17 @@ function AddProduct() {
     const [title , setTitle]= useState('')
     const [description , setDescription]= useState('')
     const [price , setPrice]= useState('')
-    const [file , setFile]= useState('')
+    const [file , setFile]= useState()
 
 
 function sendDetails(){
-    addProduct(title, description , price , file[0])
-    
+    addProduct(title, description , price , file[0])   
+
+    setTitle('')
+    setPrice('')
+    setDescription('')
+    setFile('')
+   
 }
 
 
@@ -38,6 +43,7 @@ function sendDetails(){
                         </label>
                         <div className="mt-2">
                             <input
+                            value={title}
                              onChange={(e)=>setTitle(e.target.value)}
                                 type="text"
                                 autoComplete="email"
@@ -53,6 +59,7 @@ function sendDetails(){
                         </label>
                         <div className="mt-2">
                             <input
+                            value={description}
                               onChange={(e)=>setDescription(e.target.value)}
                                 type="text"
                                 autoComplete="email"
@@ -68,6 +75,7 @@ function sendDetails(){
                         </label>
                         <div className="mt-2">
                             <input
+                            value={price}
                                 onChange={(e)=>setPrice(e.target.value)}
                                 type="number"
                                 autoComplete="email"
@@ -87,9 +95,11 @@ function sendDetails(){
                         </div>
                         <div className="mt-2">
                             <input
+                         
                               onChange={(e)=>setFile(e.target.files)}
+                            
                                 type="file"
-                                autoComplete="current-password"
+                               
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />

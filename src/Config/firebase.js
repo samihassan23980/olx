@@ -7,8 +7,6 @@ import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyCELBDif9IX_bWENJNph-3oZ9YxOOsn4nE",
   authDomain: "olxsdad.firebaseapp.com",
@@ -21,7 +19,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const storage = getStorage();
 
 function signin(email, password) {
@@ -38,7 +36,7 @@ function signup(email, password) {
           last: "Lovelace",
           born: 1815
         });
-        console.log("Document written with ID: ", docRef.id);
+
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -64,10 +62,9 @@ async function addProduct(title, description, price, file) {
 
 async function sendFile(image) {
   try {
-    const imagesRef = ref(storage, 'images/'+image);
+    const imagesRef = ref(storage, 'images/' + image.name);
     await uploadBytes(imagesRef, image)
     const url = getDownloadURL(imagesRef)
-    console.log(url)
     return url
   }
 
@@ -77,16 +74,21 @@ async function sendFile(image) {
 
 }
 
-
-async function getAds(){
-
-  const res = await getDocs(collection (db , "productdetails" ))
+async function getAds() {
+  const res = await getDocs(collection(db, "productdetails"))
   const list = []
-  res.forEach((doc)=>{
-list.push(doc.data())
+  res.forEach((doc) => {
+    const getAllUsers = doc.data()
+    getAllUsers.userID = doc.id
+    list.push(getAllUsers)
   })
   return list
+}
 
+async function userData(id) {
+  const docRef = doc(db, "productdetails", id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data()
 }
 
 
@@ -94,5 +96,6 @@ export {
   signin,
   signup,
   addProduct,
-  getAds
+  getAds,
+  userData
 }

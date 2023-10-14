@@ -11,35 +11,35 @@ import AddProduct from "../Components/Screen/AddProduct";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Dashboard/>,
+        element: <Dashboard />,
         children: [
 
             {
-                path : 'Products',
-                element : <Products/>
+                path: 'Products',
+                element: <Products />
             },
             {
-                path : 'Home',
-                element : <Home/>
+                path: 'Home',
+                element: <Home />
 
             },
             {
-                path : 'Products/:id',
-                element : <ProductDetails/>
+                path: 'Products/:id',
+                element: <ProductDetails />
             },
             {
-                path : 'Signin',
-                element : <Signin/>
+                path: 'Signin',
+                element: <Signin />
             },
             {
-                path : 'Signup',
-                element : <Signup/>
+                path: 'Signup',
+                element: <Signup />
             },
             {
-                path : 'AddProduct',
-                element : <AddProduct/>
+                path: 'AddProduct',
+                element: <AddProduct />
             }
-          
+
         ]
     },]
 )
@@ -51,9 +51,9 @@ function Router() {
 
 function Dashboard() {
     return (<>
-        <Header/>
-        <Outlet/>
-       
+        <Header />
+        <Outlet />
+
 
     </>)
 }
