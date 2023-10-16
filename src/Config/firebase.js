@@ -1,7 +1,6 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getDocs, getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -22,8 +21,8 @@ const db = getFirestore(app);
 export const auth = getAuth(app);
 const storage = getStorage();
 
-function signin(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
+async function signin(email, password) {
+ const user = await signInWithEmailAndPassword(auth, email, password)
     .then(alert('sucseesfull'))
 }
 
@@ -44,6 +43,16 @@ function signup(email, password) {
     })
 }
 
+async function signout() {
+
+  const done = await signOut(auth)
+    .then(() => {
+      alert('You are Logout Done')
+    }).catch((error) => {
+      // An error happened.
+    });
+}
+
 async function addProduct(title, description, price, Catogery, file) {
   try {
     const url = await sendFile(file)
@@ -54,7 +63,6 @@ async function addProduct(title, description, price, Catogery, file) {
       imageurl: url,
       Catogery
     });
-    console.log("Document written with ID: ", docRef.id);
     alert(docRef.id)
   } catch (e) {
     console.error("Error adding document: ", e);
@@ -86,7 +94,7 @@ async function getAds(Mobiles) {
   return list
 }
 
-async function userData(catogery , id) {
+async function userData(catogery, id) {
   const docRef = doc(db, catogery, id);
   const docSnap = await getDoc(docRef);
   return docSnap.data()
@@ -98,5 +106,6 @@ export {
   signup,
   addProduct,
   getAds,
-  userData
+  userData,
+  signout
 }

@@ -5,20 +5,17 @@ import { signin } from "../../Config/firebase"
 
 function Signin() {
 
-
     const [email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-
-
     const navigate = useNavigate()
 
-    function login() {
-        signin(email, Password)
+    async function login() {
+        await signin(email, Password)
+        navigate('/Home')
     }
 
     return (
         <>
-
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
