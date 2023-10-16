@@ -44,14 +44,15 @@ function signup(email, password) {
     })
 }
 
-async function addProduct(title, description, price, file) {
+async function addProduct(title, description, price, Catogery, file) {
   try {
     const url = await sendFile(file)
-    const docRef = await addDoc(collection(db, "productdetails"), {
+    const docRef = await addDoc(collection(db, Catogery), {
       title,
       description,
       price,
-      imageurl: url
+      imageurl: url,
+      Catogery
     });
     console.log("Document written with ID: ", docRef.id);
     alert(docRef.id)
@@ -74,8 +75,8 @@ async function sendFile(image) {
 
 }
 
-async function getAds() {
-  const res = await getDocs(collection(db, "productdetails"))
+async function getAds(Mobiles) {
+  const res = await getDocs(collection(db, Mobiles))
   const list = []
   res.forEach((doc) => {
     const getAllUsers = doc.data()
@@ -85,8 +86,8 @@ async function getAds() {
   return list
 }
 
-async function userData(id) {
-  const docRef = doc(db, "productdetails", id);
+async function userData(catogery , id) {
+  const docRef = doc(db, catogery, id);
   const docSnap = await getDoc(docRef);
   return docSnap.data()
 }

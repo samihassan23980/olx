@@ -4,6 +4,10 @@ import Header from "./Screen/Header";
 import Products from "./Screen/Products";
 import {  onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Config/firebase";
+import Mobiles from "./Screen/Mobiles";
+import Cycles from "./Screen/Cycles";
+import Laptops from "./Screen/Laptop";
+import Cars from "./Screen/Cars";
 
 
 function Home() {
@@ -31,7 +35,10 @@ function Home() {
             <img src="https://www.solopress.com/thumbnails/0/205395/12/vinyl-banner-category-page-banner.jpeg" />
         </div>
         <Catogery />
-        <Products />
+       <Mobiles/>
+       <Cycles/>
+       <Laptops/>
+       <Cars/>
     </div>);
 }
 

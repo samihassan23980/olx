@@ -53,13 +53,11 @@ function Header() {
                     <p onClick={()=>(navigate('Products'))}>Catogery</p>
                 </div>
                 <div className="flex justify-around w-[80%] font-extralight ">
-                    <p>Mobile Phones</p>
-                    <p>Cras</p>
-                    <p>Motercycles</p>
-                    <p>Houses</p>
-                    <p>TV-Video-Audio</p>
-                    <p>Tables</p>
-                    <p>Lands & Plots</p>
+                    <p onClick={()=>navigate('Catogery/Mobiles')}>Mobile Phones</p>
+                    <p onClick={()=>navigate('Catogery/Cars')}>Cars</p>
+                    <p onClick={()=>navigate('Catogery/Laptops')}>Laptops</p>
+                    <p onClick={()=>navigate('Catogery/Cycles')}>Cycles</p>
+                    
                 </div>
             </div>
         </div>

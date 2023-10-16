@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { userData } from "../../Config/firebase";
 
-function ProductDetails() {
+function CarProductDetails() {
 
 
     const Navigate = useNavigate()
@@ -68,4 +68,4 @@ console.log("ze he " + category)
     );
 }
 
-export default ProductDetails;
+export default CarProductDetails;

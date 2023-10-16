@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { userData } from "../../Config/firebase";
 
-function ProductDetails() {
+function CyclesProductDetails() {
 
 
     const Navigate = useNavigate()
@@ -11,12 +11,12 @@ function ProductDetails() {
 
 
 
-const cars = "Cars"
+const Cycles = "Cycles"
     useEffect(() => {
         const getData = async () => {
             try {
 
-                const abc = await userData(cars , id)
+                const abc = await userData(Cycles , id)
                 setFullDetail(abc)
             }
             catch (e) {
@@ -28,8 +28,7 @@ const cars = "Cars"
     }, [])
 
 
-console.log("ye he id" + id)
-console.log("ze he " + category)
+
 
     
 
@@ -68,4 +67,4 @@ console.log("ze he " + category)
     );
 }
 
-export default ProductDetails;
+export default CyclesProductDetails;
