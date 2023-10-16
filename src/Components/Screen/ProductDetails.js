@@ -1,23 +1,33 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { userData } from "../../Config/firebase";
+import { useLocation } from 'react-router-dom';
+import Mobiles from "./Mobiles";
+import Cycles from "./Cycles";
+import Laptops from "./Laptop";
+import Cars from "./Cars";
 
 function ProductDetails() {
 
+    let location = useLocation();
+    const getcatogery = location.pathname.split('/')
 
     const Navigate = useNavigate()
-    const {id , category} = useParams()
+    const { id } = useParams()
     const [fullDetail, setFullDetail] = useState()
 
+    const Route = <Mobiles />
+    const Route1 = <Cycles />
+    const Route2 = <Laptops />
+    const Route3 = <Cars />
 
 
-const cars = "Cars"
     useEffect(() => {
         const getData = async () => {
             try {
 
-                const abc = await userData(cars , id)
-                setFullDetail(abc)
+                const getData = await userData(getcatogery[1], id)
+                setFullDetail(getData)
             }
             catch (e) {
                 alert(e.message)
@@ -25,13 +35,10 @@ const cars = "Cars"
         }
         getData()
 
-    }, [])
+    }, [id, Route])
 
 
-console.log("ye he id" + id)
-console.log("ze he " + category)
 
-    
 
     if (!fullDetail) {
         return <div>Loading</div>
@@ -64,8 +71,12 @@ console.log("ze he " + category)
                     <p className="text-sm font-medium text-gray-900">{fullDetail.price}</p>
                 </div>
             </div>
+            {getcatogery[1] === "Mobiles" && Route}
+            {getcatogery[1] === "Cycles" && Route1}
+            {getcatogery[1] === "Laptops" && Route2}
+            {getcatogery[1] === "Cars" && Route3}
         </div>
     );
 }
 
-export default ProductDetails;
+export default ProductDetails; 

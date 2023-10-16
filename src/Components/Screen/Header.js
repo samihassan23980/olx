@@ -1,12 +1,13 @@
 import { AiTwotoneCar, AiFillDatabase } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
+
 function Header() {
     const navigate = useNavigate()
     return (<div className="bg-slate-100  w-[100%] ">
         <div className="w-[100%]  bg-slate-200 ">
         <div className=" w-[80%] flex  ml-auto mr-auto items-center">
-            <div className="flex-initial  w-25 m-1 p-2  "><img onClick={()=>{navigate('Home')}} className="h-5" src="https://logos-world.net/wp-content/uploads/2022/04/OLX-Symbol.png" /></div>
+            <div className="flex-initial  w-25 m-1 p-2  "><img onClick={()=>{navigate('/Home')}} className="h-5" src="https://logos-world.net/wp-content/uploads/2022/04/OLX-Symbol.png" /></div>
             <div className="flex-initial w-30 m-1 p-2  flex  items-center"><AiTwotoneCar className="border-2 p-1 bg-slate-200 rounded-full h-7 w-7  text-2xl m-1" />Motors</div>
             <div className="flex-initial w-30 m-1 p-2  flex items-center"><AiFillDatabase className="border-2 p-1 bg-slate-200 rounded-full h-7 w-7  text-2xl m-1" />Property</div>
         </div>

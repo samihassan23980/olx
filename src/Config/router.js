@@ -10,10 +10,6 @@ import Mobiles from "../Components/Screen/Mobiles";
 import Cycles from "../Components/Screen/Cycles";
 import Cars from "../Components/Screen/Cars";
 import Laptops from "../Components/Screen/Laptop";
-import CarProductDetails from "../Components/Screen/CarsProductDetail";
-import CyclesProductDetails from "../Components/Screen/CyclesProductDetail";
-import LaptopsProductDetails from "../Components/Screen/LaptopsProductDetails";
-import MobilesProductDetails from "../Components/Screen/MobilesProductDetails";
 
 
 const router = createBrowserRouter([
@@ -32,24 +28,21 @@ const router = createBrowserRouter([
 
             },
             {
-                path: 'Products/:id',
+                path: 'Cars/:id',
+                element: <ProductDetails />
+            },
+
+            {
+                path: 'Laptops/:id',
                 element: <ProductDetails />
             },
             {
-                path: ':Cars/:id',
-                element: <CarProductDetails/>
-            },
-            {
-                path: 'Laptops/:id',
-                element: <LaptopsProductDetails/>
-            },
-            {
                 path: 'Cycles/:id',
-                element: <CyclesProductDetails/>
+                element: <ProductDetails />
             },
             {
                 path: 'Mobiles/:id',
-                element: <MobilesProductDetails/>
+                element: <ProductDetails />
             },
             {
                 path: 'Catogery/Mobiles',

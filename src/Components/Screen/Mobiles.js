@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAds } from "../../Config/firebase";
+import { useLocation } from 'react-router-dom';
+
 
 
 function Mobiles() {
+    let location = useLocation();
+    const getcatogery = location.pathname.split('/')
     const [ads, setAds] = useState()
     const navigate = useNavigate()
 
-    useEffect( () => {
+    useEffect(() => {
 
         data()
-     
+
     }, [])
 
     const data = async () => {
@@ -47,11 +51,11 @@ function Mobiles() {
                                             {product.title}
                                         </a>
                                     </h3>
-                                
+
                                 </div>
                                 <p className="text-sm font-medium text-gray-900">{product.price}</p>
-                                 </div>
-                            
+                            </div>
+
                         </div>
                     ))}
                 </div>
