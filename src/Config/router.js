@@ -1,4 +1,4 @@
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {  Outlet, RouterProvider, createBrowserRouter, useNavigate } from "react-router-dom";
 import Header from "../Components/Screen/Header";
 import Home from "../Components/Home";
 import Products from "../Components/Screen/Products";
@@ -10,6 +10,11 @@ import Mobiles from "../Components/Screen/Mobiles";
 import Cycles from "../Components/Screen/Cycles";
 import Cars from "../Components/Screen/Cars";
 import Laptops from "../Components/Screen/Laptop";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+
+
 
 
 const router = createBrowserRouter([
@@ -84,6 +89,21 @@ function Router() {
 }
 
 function Dashboard() {
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+      
+           navigate('/Home')
+        
+          } else {
+         navigate('/Home')
+          }
+        });
+    
+    
+      }, [ ])
     return (<>
         <Header />
         <Outlet />

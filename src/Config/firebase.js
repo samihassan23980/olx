@@ -6,6 +6,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCELBDif9IX_bWENJNph-3oZ9YxOOsn4nE",
   authDomain: "olxsdad.firebaseapp.com",

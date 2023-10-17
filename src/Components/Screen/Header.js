@@ -3,120 +3,213 @@ import { AiTwotoneCar, AiFillDatabase } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, signout } from "../../Config/firebase";
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 function Header() {
+    const navigation = [
+        { name: 'Home', href: 'Home', current: true },
+        { name: 'Mobiles', href: 'Catogery/Mobiles', current: false },
+        { name: 'Cars', href: 'Catogery/Cars', current: false },
+        { name: 'Cycles', href: 'Catogery/Cycles', current: false },
+        { name: 'Laptops', href: '/Catogery/Laptops', current: false },
+    ]
 
 
     const navigate = useNavigate()
-    const [currentUser , setCurrentUser] = useState()
-    const[userLogout , setUserLogot] = useState(false)
+    const [currentUser, setCurrentUser] = useState()
+    const [userLogout, setUserLogot] = useState(false)
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-          if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
-            const uid = user.uid;
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/auth.user
+                const uid = user.uid;
 
-            setCurrentUser(uid)     
-            // ...
-          } else {
-            // User is signed out
-            // ...
-          }
+                setCurrentUser(uid)
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
         });
-    
-    
-      }, [currentUser , userLogout ])
 
 
-async function logout() {
-   await signout()
-
-    .then(()=>{
-        setCurrentUser(false)
-        navigate('/Home')
-    })
-   
-}      
+    }, [currentUser, userLogout])
 
 
-    return (<div className="bg-slate-100  w-[100%] ">
-        <div className="w-[100%]  bg-slate-200 ">
-        <div className=" w-[80%] flex  ml-auto mr-auto items-center">
-            <div className="flex-initial  w-25 m-1 p-2  "><img onClick={()=>{navigate('/Home')}} className="h-5" src="https://logos-world.net/wp-content/uploads/2022/04/OLX-Symbol.png" /></div>
-            <div className="flex-initial w-30 m-1 p-2  flex  items-center"><AiTwotoneCar className="border-2 p-1 bg-slate-200 rounded-full h-7 w-7  text-2xl m-1" />Motors</div>
-            <div className="flex-initial w-30 m-1 p-2  flex items-center"><AiFillDatabase className="border-2 p-1 bg-slate-200 rounded-full h-7 w-7  text-2xl m-1" />Property</div>
-        </div>
+    async function logout() {
+        await signout()
+
+            .then(() => {
+                setCurrentUser(false)
+                navigate('/Home')
+            })
+
+    }
+    return (
+        <Disclosure as="nav" className="bg-gray-800 w-[100%] fixed">
+            {({ open }) => (
+                <>
+                    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                        <div className="relative flex h-16 items-center justify-between">
+                            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                                {/* Mobile menu button*/}
+                                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                    <span className="absolute -inset-0.5" />
+                                    <span className="sr-only">Open main menu</span>
+                                    {open ? (
+                                        <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                                    ) : (
+                                        <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                                    )}
+                                </Disclosure.Button>
+                            </div>
+                            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                                <div className="flex flex-shrink-0 items-center">
+                                    <img
+                                        className="h-8 w-auto"
+                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        alt="Your Company"
+                                    />
+                                </div>
+                                <div className="hidden sm:ml-6 sm:block">
+                                    <div className="flex space-x-4">
+                                        {navigation.map((item) => (
+                                            <a
+                                                key={item.name}
+                                                onClick={() => navigate(item.href)}
+                                                className={classNames(
+                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                    'rounded-md px-3 py-2 text-sm font-medium'
+                                                )}
+                                                aria-current={item.current ? 'page' : undefined}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
 
 
-        <div className=" h-20 w-[80%] flex    ml-auto mr-auto items-center justify-around">
-            <div className="flex-initial w-25">
-                <img className="h-10" onClick={()=>{navigate('Home')}} src="https://logos-world.net/wp-content/uploads/2022/04/OLX-Symbol.png" />
-            </div>
-            <div className=" md:flex-initial  md:w-[25%] ">
-                <div>
-                    
-                    <input
-                        type="text"
-                        name="price"
-                        id="price"
-                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Pakistan"
-                    />
-                </div>
-            </div>
-            <div className="flex-initial w-[35%]">
-                <div>
-                    
-                    <input
-                        type="text"
-                        name="price"
-                        id="price"
-                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder=""
-                    />
-                </div>
 
-            </div>
-            <div className="flex-initial flex justify-around w-[25%] ">
-                {
-                    currentUser 
-                    ?
-                    <button onClick={logout} className="w-24 border p-2 rounded-lg font-semibold text-1xl shadow-2xl bg-slate-50">Logot</button>   
-                    :
-                    <button onClick={()=>navigate('Signin')} className="w-24 border p-2 rounded-lg font-semibold text-1xl shadow-2xl bg-slate-50">Login</button>
-                }
-                
-                {currentUser  ?  <button onClick={()=>navigate('AddProduct')} className="w-24 border p-2 rounded-full font-semibold text-1xl shadow-xl bg-slate-50">Sell</button>
-            :  <button onClick={()=>navigate('/Signup')} className="w-24 border p-2 rounded-lg font-semibold text-1xl shadow-2xl bg-slate-50">Register</button>
-        }
-               
-               
-           
-           
-            </div>
-        </div>
-        <div className=" h-20 w-[100%] flex    ml-auto mr-auto items-center justify-around bg-white">
-            <div className=" h-20 w-[80%] flex    ml-auto mr-auto items-center justify-around">
 
-                <div className="w-24  font-semibold">
-                    <p onClick={()=>(navigate('Products'))}>Catogery</p>
-                </div>
-                <div className="flex justify-around w-[80%] font-extralight ">
-                    <p onClick={()=>navigate('Catogery/Mobiles')}>Mobile Phones</p>
-                    <p onClick={()=>navigate('Catogery/Cars')}>Cars</p>
-                    <p onClick={()=>navigate('Catogery/Laptops')}>Laptops</p>
-                    <p onClick={()=>navigate('Catogery/Cycles')}>Cycles</p>
-                    
-                </div>
-            </div>
-        </div>
-        </div>
-      
-    </div>);
+
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                               
+                            { !currentUser &&
+                              <button onClick={() => navigate('/Signin')} className="bg-blue-700 w-28 h-10 m-1 items-center text-white">Signin</button>
+                               }
+                               
+                               { !currentUser &&
+                               <button onClick={() => navigate('/Signup')} className="bg-yellow-400 w-28 h-10 m-1 items-center text-black">Signup</button>
+                               }
+                             
+                               { currentUser &&  <button onClick={() => navigate('AddProduct')} className="bg-red-500 w-28 h-10 m-1 items-center text-white">Sell</button>}
+
+
+
+
+                                {/* Profile dropdown */}
+
+
+                                {
+                                    currentUser &&
+                                    <Menu as="div" className="relative ml-3">
+                                        <div>
+                                            <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                                <span className="absolute -inset-1.5" />
+                                                <span className="sr-only">Open user menu</span>
+                                                <img
+                                                    className="h-8 w-8 rounded-full"
+                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt=""
+                                                />
+                                            </Menu.Button>
+                                        </div>
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+                                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a
+                                                            href="#"
+                                                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        >
+                                                            Your Profile
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a
+                                                            href="#"
+                                                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        >
+                                                            Settings
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a
+                                                            onClick={logout}
+                                                            href="#"
+                                                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        >
+                                                            Sign out
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <Disclosure.Panel className="sm:hidden">
+                        <div className="space-y-1 px-2 pb-3 pt-2">
+                            {navigation.map((item) => (
+                                <Disclosure.Button
+                                    key={item.name}
+                                    as="a"
+                                    onClick={() => navigate(item.href)}
+                                    className={classNames(
+                                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                        'block rounded-md px-3 py-2 text-base font-medium'
+                                    )}
+                                    aria-current={item.current ? 'page' : undefined}
+                                >
+                                    {item.name}
+                                </Disclosure.Button>
+                            ))}
+                        </div>
+                    </Disclosure.Panel>
+                </>
+            )}
+        </Disclosure>
+    )
 }
 
-export default Header;
+
+export default Header

@@ -11,7 +11,6 @@ function ProductDetails() {
 
     let location = useLocation();
     const getcatogery = location.pathname.split('/')
-
     const Navigate = useNavigate()
     const { id } = useParams()
     const [fullDetail, setFullDetail] = useState()
@@ -21,11 +20,9 @@ function ProductDetails() {
     const Route2 = <Laptops />
     const Route3 = <Cars />
 
-
     useEffect(() => {
         const getData = async () => {
             try {
-
                 const getData = await userData(getcatogery[1], id)
                 setFullDetail(getData)
             }
@@ -36,8 +33,6 @@ function ProductDetails() {
         getData()
 
     }, [id, Route])
-
-
 
 
     if (!fullDetail) {

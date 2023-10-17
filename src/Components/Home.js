@@ -27,10 +27,10 @@ function Home() {
   }, [])
   return (<div>
 
-    <div className="h-auto   w-[100%]">
+    <div className="h-auto">
       <img src="https://www.solopress.com/thumbnails/0/205395/12/vinyl-banner-category-page-banner.jpeg" />
     </div>
-    <Catogery />
+    <Catogery/>
     <Mobiles />
     <Cycles />
     <Laptops />
