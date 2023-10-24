@@ -12,7 +12,7 @@ function Catogery() {
     return (<div className=" w-auto bg-white">
         <div className="w-[80%] ml-auto mr-auto">
             <div className=" p-2">
-                <h1 className="indent-5 text-3xl">All Catogery</h1>
+                <h1 className="indent-5 text-3xl">All Catogery set</h1>
             </div>
             <div className="flex flex-wrap justify-around font-mono">
 
